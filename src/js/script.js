@@ -84,17 +84,91 @@ chooseOptExpenses();
 
 
 
+let options = {
+    width: 1024,
+    height: 1024,
+    name: "test"
+};
+
+console.log(options.name);
+
+options.bools = true;
+options.colors = {
+    border: "black",
+    bg: "red"
+};
+
+delete options.bools;
+
+console.log(options);
+
+for (let key in options) {
+    console.log('свойство ' + key + ' имеет значение ' + options[key]);
+
+}
 
 
+console.log(Object.keys(options).length);
+
+//************************************************************ */
+
+// let arr = [1,2,3,4,5];
+// console.log(arr);
+
+// arr.pop(); //удаляет последний элемент массива
+// arr.push("5"); // Добавляет элемент в конец массива
+// arr.shift(); // удаляет первый элемент массива
+// arr.unshift("first"); // добавляет первый элемень массива
 
 
+// // for (let i = 0 ; i < arr.length; i++) {
+// //     console.log(arr[i]);
+// // }
+// arr.forEach(function(item, i, mass) {
+//     console.log (i+ ': ' + item + ' (массив: ' + mass + ')');
+// });
+
+// let mass = [1,3,4,6,7] ;
+//      // выводит ключи массива
+//     for(let key in mass) { 
+//         console.log(key);
+//     }
+//     // выводит значения массива
+//     for(let key of mass) {
+//         console.log(key);
+//     }
 
 
+//************************************************************** */
+// // загружает в массив все что ввел пользователь, запятая является разделителем 
+// //элементов массива
+
+// let ans = prompt("", ""),
+//     arr = [];
+
+// arr = ans.split(',');
 
 
+//  переделывает массив в строку с заданным разделителем
+// let arr = ['asdfasdf', 'asdffvd', ' dfghdfg' , 'dfghsd'],
+//     i = arr.join(', ');
 
+// console.log (i);
 
+// сортировка массива по строкам числа не сортирует
+// let arr = ['asdfaf', 'bdff', 'dfghdfg' , 'cfghsd'],
+//     i = arr.sort();
 
+// console.log (arr);
+
+let arr = [1, 15, 5],
+    i = arr.sort(compareNum);
+
+function compareNum(a,b) {
+    return a-b;
+}
+
+console.log (arr);
 
 
 
