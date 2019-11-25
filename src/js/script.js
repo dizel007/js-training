@@ -1,114 +1,124 @@
 'use strict';
 let money, time;
+
 function start() {
-    money = +prompt ("Ваш бюджет на месяц?", "");
-    time = prompt ("Введите дату в формате YYYY-MM-DD", "");
+    money = +prompt("Ваш бюджет на месяц?", "");
+    time = prompt("Введите дату в формате YYYY-MM-DD", "");
 
     while (isNaN(money) || money == "" || money == null) {
-        money = +prompt ("Ваш бюджет на месяц?", "");
+        money = +prompt("Ваш бюджет на месяц?", "");
     }
 }
 
 start();
-    
+
 let appData = {
     budget: money,
     timeData: time,
     expenses: {},
     optionalExpenses: {},
     income: [],
-    savings: true
-};
-
-
-function chooseExpenses () {
+    savings: true,
+    chooseExpenses: function () {
     for (let i = 0; i < 1; i++) {
-        let a = prompt ("Введите обязательную статью расходов в этом месяце", ""),
-            b = prompt ("Во сколько обойдется?", "");
-    
-        if ( typeof(a)==='string' && typeof(a) != null && typeof(b) != null && a != "" && b != "" && a.length < 50) {
-    
-            console.log ("done");
-    
+        let a = prompt("Введите обязательную статью расходов в этом месяце", ""),
+            b = prompt("Во сколько обойдется?", "");
+        if (typeof (a) === 'string' && typeof (a) != null && typeof (b) != null && a != "" && b != "" && a.length < 50) {
+            console.log("done");
             appData.expenses[a] = b;
-        } else {                            
-            console.log ("bad result");
+        } else {
+            console.log("bad result");
             i--;
         }
     }
-}
 
-chooseExpenses();
+    },
+    detectDayBudget: function () {
+        appData.moneyPerDay = (appData.budget / 30).toFixed();
+        alert("Бюджет на 1 день составляет " + appData.moneyPerDay + "руб.");
+    },
 
-function detectDayBudget () {
-    appData.moneyPerDay = (appData.budget / 30).toFixed();
-    alert ("Бюджет на 1 день составляет " + appData.moneyPerDay + "руб.");    
-}
-detectDayBudget ();
-
-function detectLevel () {
-    if (appData.moneyPerDay <= 100) {
-        console.log ("Это минимальный уровень достатка!");
-    } else if (appData.moneyPerDay > 100 && appData.moneyPerDay <= 2000) {
-        console.log ("Это средний уровень достатка!");
-    } else if (appData.moneyPerDay > 2000) {
-        console.log ("Это высокий уровень достатка!");
-    } else {
-        console.log ("Произошла ошибка");
-    }
-}
-detectLevel();
-
-function checkSavings() {
-    if (appData.savings == true) {
-        let save = +prompt ("Какова сумма накопления"),
-            percent = +prompt("Под какой процент");
-
-            appData.mobthIncome = save/100/12*percent;
-            alert("Доход в месяц с вашего депозита " + appData.mobthIncome);
-    }
-}
-
-checkSavings();
-
-
-function chooseOptExpenses() {
-    for (let i = 0; i < 3; i++) {
-    let questionOptExpenses = prompt ("Введите статью необязятельных расходов ");
-        appData.optionalExpenses[i] = questionOptExpenses;
-    console.log(appData.optionalExpenses);
+    detectLevel: function () {
+        if (appData.moneyPerDay <= 100) {
+            console.log("Это минимальный уровень достатка!");
+        } else if (appData.moneyPerDay > 100 && appData.moneyPerDay <= 2000) {
+            console.log("Это средний уровень достатка!");
+        } else if (appData.moneyPerDay > 2000) {
+            console.log("Это высокий уровень достатка!");
+        } else {
+            console.log("Произошла ошибка");
+        }
+    },
+    checkSavings : function () {
+        if (appData.savings == true) {
+            let save = +prompt("Какова сумма накопления"),
+                percent = +prompt("Под какой процент");
     
+            appData.mobthIncome = save / 100 / 12 * percent;
+            alert("Доход в месяц с вашего депозита " + appData.mobthIncome);
+        }
+    },
+
+    chooseOptExpenses:  function () {
+        for (let i = 0; i < 3; i++) {
+            let questionOptExpenses = prompt("Введите статью необязятельных расходов ");
+            appData.optionalExpenses[i] = questionOptExpenses;
+            console.log(appData.optionalExpenses);
+    
+        }
+    },
+    choiceIncome: function() {
+        let items = prompt("Что принесет дополнительный доход? (Перечислите через запятую)", "");
+
+        if (typeof(items) != "string" || items == "" || typeof(items) == null) {
+            console.log("Вы ввели некорректные данные или не ввели их вовсе");
+        } else {
+            appData.income = items.split(", ");
+            appData.income.push(prompt("Может что-то еще?"));
+            appData.income.sort();
+        }
+
+        appData.income.forEach (function (itemmassive, i) {
+            alert("Способы доп. заработка: " + (i+1) + " - " + itemmassive);
+        });
+
     }
-}
-chooseOptExpenses();
 
-
-
-let options = {
-    width: 1024,
-    height: 1024,
-    name: "test"
 };
 
-console.log(options.name);
-
-options.bools = true;
-options.colors = {
-    border: "black",
-    bg: "red"
-};
-
-delete options.bools;
-
-console.log(options);
-
-for (let key in options) {
-    console.log('свойство ' + key + ' имеет значение ' + options[key]);
-
+for (let key in appData) {
+    console.log("Наша программа включает в себя данные: " + key + " - " + appData[key]);
 }
 
 
-console.log(Object.keys(options).length);
+
+
+
+// let options = {
+//     width: 1024,
+//     height: 1024,
+//     name: "test"
+// };
+
+// console.log(options.name);
+
+// options.bools = true;
+// options.colors = {
+//     border: "black",
+//     bg: "red"
+// };
+
+// delete options.bools;
+
+// console.log(options);
+
+// for (let key in options) {
+//     console.log('свойство ' + key + ' имеет значение ' + options[key]);
+
+// }
+
+
+// console.log(Object.keys(options).length);
 
 //************************************************************ */
 
@@ -160,15 +170,13 @@ console.log(Object.keys(options).length);
 //     i = arr.sort();
 
 // console.log (arr);
-
-let arr = [1, 15, 5],
-    i = arr.sort(compareNum);
-
-function compareNum(a,b) {
-    return a-b;
-}
-
-console.log (arr);
+// сортирует числа (непонятно почему)
+// let arr = [1, 15, 5],
+//     i = arr.sort(compareNum);
+// function compareNum(a,b) {
+//     return a-b;
+// }
+// console.log (arr);
 
 
 
